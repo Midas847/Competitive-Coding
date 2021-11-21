@@ -1,0 +1,39 @@
+// https://leetcode.com/problems/longest-turbulent-subarray
+
+class Solution {
+public:
+    int maxTurbulenceSize(vector<int>& arr) {
+        int count = INT_MIN;
+        int c = 0;
+        if(arr.size()==1)
+            return 1;
+        for(int i=0;i<arr.size()-1;i++){
+            if(i%2!=0 && arr[i] > arr[i+1]){
+                c++;
+            }
+            else if(i%2==0 && arr[i] < arr[i+1]){
+                c++;
+            }
+            else{
+                count = max(count,c);
+                c = 0;
+            }
+        }
+        int countnew = INT_MIN;
+        c = 0;
+        for(int i=0;i<arr.size()-1;i++){
+            if(i%2==0 && arr[i] > arr[i+1]){
+                c++;
+            }
+            else if(i%2!=0 && arr[i] < arr[i+1]){
+                c++;
+            }
+            else{
+                countnew = max(countnew,c);
+                c = 0;
+            }
+        }
+        int final_count = max(countnew,count);
+        return final_count+1;
+    }
+};
